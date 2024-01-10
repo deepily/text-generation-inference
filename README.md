@@ -179,7 +179,18 @@ brew install protobuf
 Then run:
 
 ```shell
-BUILD_EXTENSIONS=True make install # Install repository and HF/transformer fork with CUDA kernels
+export BUILD_EXTENSIONS=True 
+
+# Install repository and HF/transformer fork with CUDA kernels
+make install 
+
+# Make these optional extensions in the server directory
+cd server 
+make install-vllm-cuda --or-- install-vllm-rocm
+make install-flash-attention
+make install-flash-attention-v2-cuda --or-- install-flash-attention-v2-rocm
+
+# Test run of your first model
 make run-falcon-7b-instruct
 ```
 
