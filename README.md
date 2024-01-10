@@ -181,20 +181,26 @@ Then run:
 ```shell
 export BUILD_EXTENSIONS=True 
 
+# Optional: set the number of ninja jobs in the build process. See 1st note below.
+# export MAX_JOBS=<some number less than the number of available CPU cores on your machine>
+
 # Install repository and HF/transformer fork with CUDA kernels
 make install 
 
-# Make these optional extensions in the server directory
+# Optional: make these extensions in the server directory
 cd server 
 make install-vllm-cuda --or-- install-vllm-rocm
 make install-flash-attention
 make install-flash-attention-v2-cuda --or-- install-flash-attention-v2-rocm
 
-# Test run of your first model
+# Test run your first model
 make run-falcon-7b-instruct
 ```
 
-**Note:** on some machines, you may also need the OpenSSL libraries and gcc. On Linux machines, run:
+**Note 1:** Ninja, which is used to compile code in the  `make` steps above, can fail, sometime silently, on computers with a high CPU cores to available RAM ratio.
+If you experience this issue, you can set and export ninja's `MAX_JOBS` value to a number smaller than the number of available cores. Discussed [here](https://github.com/Dao-AILab/flash-attention/issues/391) in the context of building Flash Attention.
+
+**Note 2:** on some machines, you may also need the OpenSSL libraries and gcc. On Linux machines, run:
 
 ```shell
 sudo apt-get install libssl-dev gcc -y
