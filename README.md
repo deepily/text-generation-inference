@@ -192,6 +192,7 @@ cd server
 make install-vllm-cuda --or-- install-vllm-rocm
 make install-flash-attention
 make install-flash-attention-v2-cuda --or-- install-flash-attention-v2-rocm
+cd .. 
 
 # Test run your first model
 make run-falcon-7b-instruct
